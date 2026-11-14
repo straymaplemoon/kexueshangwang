@@ -96,7 +96,7 @@ def sub_check(url,bar):
             if res.status_code == 200:
                 try: #有流量信息
                     info = res.headers['subscription-userinfo']
-                    info_num = re.findall('\d+',info)
+                    info_num = re.findall(r'\d+',info)
                     if info_num :
                         upload = int(info_num[0])
                         download = int(info_num[1])
