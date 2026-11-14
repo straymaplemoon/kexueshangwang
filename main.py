@@ -3,6 +3,7 @@ import os
 import yaml
 import threading
 import base64
+from html import unescape
 import requests
 from loguru import logger
 from tqdm import tqdm
@@ -51,7 +52,7 @@ def get_channel_http(channel_url):
     try:
         with requests.post(channel_url, timeout=10) as resp:
             data = resp.text
-        url_list = re.findall("https?://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]", data)  # 使用正则表达式查找订阅链接并创建列表
+        url_list = [unescape(url) for url in re.findall("https?://[-A-Za-z0-9+&@#/%?=~_|!:,.;]+[-A-Za-z0-9+&@#/%=~_|]", data)]  # 提取并解码订阅链接
         logger.info(channel_url+'\t获取成功')
     except Exception as e:
         logger.warning(channel_url+'\t获取失败')
