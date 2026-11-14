@@ -2,6 +2,14 @@ name: Refresh subscription sources
 
 on:
   workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'main.py'
+      - 'pre_check.py'
+      - 'requirements.txt'
+      - 'config.yaml'
+      - '.github/workflows/fetch.yaml'
   schedule:
     - cron: '0 */6 * * *'
 
